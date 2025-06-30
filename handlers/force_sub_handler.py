@@ -18,7 +18,7 @@ async def get_invite_link(bot: Client, chat_id: Union[str, int]):
         return await get_invite_link(bot, chat_id)
 
 
-async def handle_force_sub(bot: Client, cmd: Message):
+async def handle_force_sub(bot: Client, cmd: Message): # by t.me/nandha
     if not Config.FSUB_CHANNEL:
         return 200
     
