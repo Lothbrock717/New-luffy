@@ -1,6 +1,12 @@
 import os
 
 class Config(object):
+
+
+  FSUB_CHANNEL = os.environ.get("FSUB_CHANNEL", [])
+  if FSUB_CHANNEL:
+    FSUB_CHANNEL = [int(x) for x in FSUB_CHANNEL.split()]
+    
   API_ID = int(os.environ.get("API_ID", "26444821"))
   API_HASH = os.environ.get("API_HASH", "a58efd1d6483e3f0d5b2757d9f665c24")
   BOT_TOKEN = os.environ.get("BOT_TOKEN", "")

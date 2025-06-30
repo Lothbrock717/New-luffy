@@ -19,6 +19,52 @@ async def get_invite_link(bot: Client, chat_id: Union[str, int]):
 
 
 async def handle_force_sub(bot: Client, cmd: Message):
+    if not Config.FSUB_CHANNEL:
+        return 200
+    
+    btns = []
+    for channel_chat_id in Config.FSUB_CHANNEL:
+        if channel_chat_id.startswith("-100"):
+            channel_chat_id = int(channel_chat_id)
+        else:
+            channel_chat_id = channel_chat_id
+        try:
+            user = await bot.get_chat_member(chat_id=channel_chat_id, user_id=cmd.from_user.id)
+            if user.status == "kicked":
+                await bot.send_message(
+                    chat_id=cmd.from_user.id,
+                    text="Sorry Sir, You are Banned to use me. Contact my [𝙎𝙪𝙥𝙥𝙤𝙧𝙩 𝙂𝙧𝙤𝙪𝙥](https://t.me/+kG9L8w7YAZsyMjE1).",
+                    disable_web_page_preview=True
+                )
+                return 400
+        except UserNotParticipant:
+            try:
+                invite_link = await get_invite_link(bot, chat_id=channel_chat_id)
+            except Exception as err:
+                print(f"Unable to do Force Subscribe to {channel_chat_id}\n\nError: {err}")
+                return 200
+            btns.append(
+                InlineKeyboardButton("🤖 Join channel/group", url=invite_link.invite_link)
+            )
+    if btns:
+        await bot.send_message(
+            chat_id=cmd.from_user.id,
+            text="**Please join my channels/groups to use this bot!✨**\n\n"
+                "Due to overload, only channel/group subscribers can use this bot!😄",
+            reply_markup=InlineKeyboardMarkup(
+                [
+                    btns,
+                    [
+                        InlineKeyboardButton("🔄 Refresh 🔄", url=f"https://t.me/{Config.BOT_USERNAME}?start={cmd.command[1]}")
+                    ]
+                ]
+            )
+        )
+        return 400        
+    else:
+        return 200
+
+async def handle_force_sub_sigle(bot: Client, cmd: Message):
     if Config.UPDATES_CHANNEL and Config.UPDATES_CHANNEL.startswith("-100"):
         channel_chat_id = int(Config.UPDATES_CHANNEL)
     elif Config.UPDATES_CHANNEL and (not Config.UPDATES_CHANNEL.startswith("-100")):
@@ -43,7 +89,7 @@ async def handle_force_sub(bot: Client, cmd: Message):
         await bot.send_message(
             chat_id=cmd.from_user.id,
             text="**ᴘʟᴇᴀꜱᴇ ᴊᴏɪɴ ᴍʏ ᴜᴘᴅᴀᴛᴇꜱ ᴄʜᴀɴɴᴇʟ ᴛᴏ ᴜꜱᴇ ᴛʜɪꜱ ʙᴏᴛ!✨**\n\n"
-                 "ᴅᴜᴇ ᴛᴏ ᴏᴠᴇʀʟᴏᴀᴅ, ᴏɴʟʏ ᴄʜᴀɴɴᴇʟ ꜱᴜʙꜱᴄʀɪʙᴇʀꜱ ᴄᴀɴ ᴜꜱᴇ ᴛʜɪꜱ ʙᴏᴛ!😄",
+                "ᴅᴜᴇ ᴛᴏ ᴏᴠᴇʀʟᴏᴀᴅ, ᴏɴʟʏ ᴄʜᴀɴɴᴇʟ ꜱᴜʙꜱᴄʀɪʙᴇʀꜱ ᴄᴀɴ ᴜꜱᴇ ᴛʜɪꜱ ʙᴏᴛ!😄",
             reply_markup=InlineKeyboardMarkup(
                 [
                     [
