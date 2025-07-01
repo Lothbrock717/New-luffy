@@ -12,6 +12,11 @@
     "success_url": "https://t.me/+kG9L8w7YAZsyMjE1",
     "logo": "https://telegra.ph/file/b39906f572822b3ab82c8.jpg",
     "env": {
+         
+        "FSUB_CHANNEL": {
+           "description": "Add here like -10038383838 -10037377383"
+},
+
         "API_ID": {
             "description": "Get this value from my.telegram.org"
         },
