@@ -38,7 +38,7 @@ Send Me any Media or File. I can Work In Channel too. Add Me to Channel with Edi
 │
 ╰──────[ 😎 ]───────────⍟
 """
-  ABOUT_DEV_TEXT = f""" hi
+  ABOUT_DEV_TEXT = f""" Ho
 """
   HOME_TEXT = """
 Hello, [{}](tg://user?id={})\n\n **Hᴇʟʟᴏ Stranger🦋 ɪ ᴀᴍ ᴀ ᴘᴏᴡᴇʀꜰᴜʟ Fɪʟᴇ ᴛᴏ ʟɪɴᴋ + ꜰɪʟᴇ sᴛᴏʀᴇ ʙᴏᴛ **⚡️
